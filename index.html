@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Морской бой</title>
+   <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+   <div class="wrap">
+      <div id="dev" class="developer"></div>
+      <div id="dev-p" class="dev-panel">
+         <div id="dev-p-s" class="dev-panel__secret show"><span>VisibleShips</span></div>
+         <div id="campstep" class="dev-panel__campstep show"><span>OnlyPC</span></div>
+         <div id="playerstep" class="dev-panel__playerstep show"><span>OnlyPlayer</span></div>
+         <div id="dev-dev" class="dev-panel__developer show"><span>Developer</span></div>
+      </div>
+      <div class="wrapper">
+         <div id="names" class="names active">
+            <span id="n-player" class="names__player active">player</span>
+            <span id="n-camp" class="names__computer active">computer</span>
+         </div>
+         <div id="scr" class="score active">
+            <span id="scr-player">0</span>
+            <span>:</span>
+            <span id="scr-camp">0</span>
+         </div>
+         <div id="cntnr" class="container active">
+            <div class="container-check-theme show" id="dark">
+               <span id="boxText" class="text active">Темная тема</span>
+            </div>
+            <div id="snc" class="container-name-change show">смена ника</div>
+            <div id="lvl" class="container-lvl show">сложность</div>
+            <div id="lvl-items" class="container-lvl-i">
+               <div data-lvl="1" id="lvl-n1" class="lvl-n show">1</div>
+               <div data-lvl="2" id="lvl-n2" class="lvl-n active show">2</div>
+               <div data-lvl="3" id="lvl-n3" class="lvl-n show">3</div>
+            </div>
+            <div id="cont-tech" class="container-technique">
+               <div id="manual" class="container-technique__manual active">вручную</div>
+               <div id="randm" class="container-technique__random active">рандом</div>
+            </div>
+            <div id="btn_play" class="container-play active">начать игру</div>
+         </div>
+         <div id="c-p-i" class="container-play-info show">
+            <p id="gameInfo" class="container-play-info__p show">игра началась</p>
+            <p><span id="winner" class="winner show"></span></p>
+            <div id="btn_pause" class="container-play-info__btn-end active">прервать</div>
+         </div>
+         <div id="nni" class="nickname-items show">
+            <p id="nnp" class="n-player show">Игрок</p>
+            <span><input id="u-n" type="text" name="user name" value=""></span>
+            <p id="nnc" class="n-camp show">Компьютер</p>
+            <span><input id="c-n" type="text" name="user name" value=""></span>
+            <div class="nickname-items__btns">
+               <div id="n-i-ok" class="n-i-ok show">ok</div>
+               <div id="n-i-cncl" class="n-i-cncl show">отмена</div>
+            </div>
+         </div>
+         <div class="win">
+            <div id="win-p" class="win__player show">🗸</div>
+            <div id="win-c" class="win__computer show">🗸</div>
+         </div>
+         <div id="trol" class="trol"></div>
+         <div class="time show" id="time"><span id="hrs">00</span>:<span id="min">00</span>:<span id="sec">00</span></div>
+         <div id="vr" class="version active">Ver: 1.00</div>
+         <div id="timeout" class="timeout show"><span>ускорить ходы компьютера</span></div>
+         <audio id="sound_click" src="./sound/sound_click.mp3"></audio>
+         <audio id="finish" src="./sound/ups.mp3"></audio>
+         <audio id="press" src="./sound/press.mp3"></audio>
+         <audio id="winAudio" src="./sound/ebat.mp3"></audio>
+         <audio id="lolAudio" src="./sound/human.mp3"></audio>
+         <audio id="shot" src="./sound/shot6.ogg"></audio>
+         <audio id="kill" src="./sound/kill4.ogg"></audio>
+         <audio id="shot1" src="./sound/shot1.ogg"></audio>
+         <div class="additional-lvl">
+            <div id="lvlBlock" class="lvl-block">
+               <p class="lvl-block__text">Ты показываешь хорошие показатели в игре. Готов ли ты сразиться в сложной битве? Но помни, тебе дозволено сделать 2-3 промаха.</p>
+               <div class="lvl-block__btns">
+                  <div data-lvl="4" id="addLvl" class="lvl-block__btns-item">ok</div>
+                  <div id="closeLvl" class="lvl-block__btns-item">отказать</div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <canvas class="active" id="canvas"></canvas>
+   </div>
+   <script src="js/Game.js"></script>
+   <script src="js/Topology.js"></script>
+   <script src="js/command.js"></script>
+   <script src="js/mouse.js"></script>
+   <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1108 @@
+//ОБНУЛЕНИЕ=========================================================================================================================================================>>>
+* {padding: 0px;margin: 0px;border: 0px;}
+*,*:before,*:after {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
+:focus,:active {outline: none;}
+a:focus,a:active {outline: none;}
+aside,nav,footer,header,section {display: block;}
+html,body {margin: 0;padding: 0;min-width: 320px;position: relative;color: #000;-webkit-tap-highlight-color: rgba(255, 255, 255, 0);-webkit-tap-highlight-color: transparent;}
+body {line-height: 1;font-size: 14px;-ms-text-size-adjust: 100%;-moz-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: rgb(41, 41, 41);font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;user-select: none;}
+body.lock {overflow: hidden;}
+@media (max-width: 767.98px) {body.lock {width: 100%;}}
+input::-ms-clear {display: none;}
+button {cursor: pointer;}
+button::-moz-focus-inner {padding: 0;border: 0;}
+a,a:visited {text-decoration: none;}
+a:hover {text-decoration: none;}
+ul li {list-style: none;}
+img {vertical-align: top;}
+h1,h2,h3,h4,h5,h6 {font-size: inherit;font-weight: inherit;}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {display: none;-webkit-appearance: none;margin: 0;}
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {-webkit-appearace: none;-moz-appearance: none;-webkit-appearance: none;appearance: none;}
+//MIXINS===================================================================================================================================================================>>>
+@mixin flexbox(){display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;font-size: 0;}
+@mixin mainCntnr () {z-index: 1;position: absolute;margin: 0 0 0 -98px;top: 125px;left: 50%;width: 203px;height: 295px;border-radius: 6px;transition: 0.3s;padding: 8px 0;}
+@mixin mainBtns () {position: absolute;width: 182px;height: 40px;font-size: 20px;font-weight: 700;color: black;border-radius: 5px;text-align: center;text-transform: uppercase;transition: 0.2s;cursor: pointer;margin: 5px 0;display: flex;justify-content: center;align-items: center;&:hover {background-color: rgba(229, 255, 0, 0.6);}&:active {background-color: yellow;box-shadow: 0 0 10px 2px rgba(229, 255, 0, 0.3);}}
+@mixin playText () {text-transform: uppercase;font-weight: 700;color: $colorText1;}
+@mixin winBlock () {justify-content: center;align-items: center;position: relative;left: 50%;width: 300px;height: 300px;background-color: #1f1f1f;z-index: 1;color: red;font-size: 200px;text-transform: uppercase;}
+//CheckBox----------------------------------------------------------------------------------------------------------------------------------------------------------------->>>
+@mixin chckBox () {position: absolute;z-index: 3;cursor: pointer;transition: all .3s ease 0s;}
+@mixin beforeBox () {content: "";width: 35px;height: 20px;border-radius: 20px;border: 1px solid yellow;position: absolute;left: 0;top: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);}
+@mixin afterBox () {content: "";position: absolute;width: 20px;height: 20px;left: 0px;top: 0px;border: 2px solid yellow;background-color: rgba(251, 255, 0, 0.885);border-radius: 50%;box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);transition: all 0.2s ease 0s;}
+
+//ActiveCheckBox----------------------------------------------------------------------------------------------------------------------------------------------------------->>>
+
+//ПЕРЕМЕННЫЕ===============================================================================================================================================================>>>
+$colorLight: rgb(36, 36, 157);
+$colorDark: rgb(229, 255, 0);
+$colorText1:  yellow;
+$colorText2: #b22;
+
+
+//ОСНОВНОЙ БЛОК============================================================================================================================================================>>>
+.developer {
+   width: 23px;
+   height: 23px;
+   z-index: 4;
+}
+
+.dev-panel {
+   position: relative;
+   left: 50%;
+   top: -100px;
+   display: none;
+   margin: 0 0 0 -1100px;
+   &.active {
+      display: block;
+   }
+}
+.dev-panel__secret {
+   position: absolute;
+   font-size: 18px;
+   color: $colorText1;
+   font-weight: 700;
+   span {
+      position: relative;
+      left: 50px;
+      top: 0.4px;
+   }
+
+   z-index: 1;
+   top: 556px;
+   left: 50%;
+   margin: 0 0 0 -433px;
+   z-index: 3;
+   cursor: pointer;
+   transition: all 1.3s ease 0s;
+
+   &:before {
+      @include beforeBox();
+   }
+   &:after {
+      @include afterBox();
+   }
+   &.active {
+      &:after {
+         left: 15px;
+         background-color: rgba(0, 255, 255, 0.9);
+         border: 2px solid rgba(0, 255, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid black;
+         background-color: rgba(0, 255, 255, 0.8);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+      &.show {
+         &:after {
+            left: 15px;
+            background-color: rgba(255, 0, 0, 0.9);
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+         }
+         &:before {
+            border: 2px solid black;
+            background-color: rgba(255, 0, 0, 0.8);
+            box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+         }
+      }
+   }
+   &.show {
+      color: #b22;
+      &:after {
+         background-color: rgba(0, 8, 255, 0.9);
+         border: 2px solid rgba(0, 111, 136, 0.5);
+         box-shadow: 0 0 3px rgba(0, 123, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid rgb(0, 102, 255);
+         background-color: rgba(0, 132, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 195, 255, 0.3);
+      }
+   }
+}
+
+.dev-panel__campstep {
+   position: absolute;
+   font-size: 18px;
+   color: $colorText1;
+   font-weight: 700;
+   span {
+      position: relative;
+      left: 50px;
+      top: 0.4px;
+   }
+   z-index: 1;
+   top: 556px;
+   left: 50%;
+   margin: 0 0 0 -250px;
+   z-index: 3;
+   cursor: pointer;
+   transition: all 1.3s ease 0s;
+
+   &:before {
+      @include beforeBox();
+   }
+   &:after {
+      @include afterBox();
+   }
+   &.active {
+      &:after {
+         left: 15px;
+         background-color: rgba(0, 255, 255, 0.9);
+         border: 2px solid rgba(0, 255, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid black;
+         background-color: rgba(0, 255, 255, 0.8);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+      &.show {
+         &:after {
+            left: 15px;
+            background-color: rgba(255, 0, 0, 0.9);
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+         }
+         &:before {
+            border: 2px solid black;
+            background-color: rgba(255, 0, 0, 0.8);
+            box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+         }
+      }
+   }
+   &.show {
+      color: #b22;
+      &:after {
+         background-color: rgba(0, 8, 255, 0.9);
+         border: 2px solid rgba(0, 111, 136, 0.5);
+         box-shadow: 0 0 3px rgba(0, 123, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid rgb(0, 102, 255);
+         background-color: rgba(0, 132, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 195, 255, 0.3);
+      }
+   }
+}
+
+.dev-panel__playerstep {
+   position: absolute;
+   font-size: 18px;
+   color: $colorText1;
+   font-weight: 700;
+   span {
+      position: relative;
+      left: 50px;
+      top: 0.4px;
+   }
+   z-index: 1;
+   top: 556px;
+   left: 50%;
+   margin: 0 0 0 -100px;
+   z-index: 3;
+   cursor: pointer;
+   transition: all 1.3s ease 0s;
+
+   &:before {
+      @include beforeBox(); 
+   }
+   &:after {
+      @include afterBox();
+   }
+   &.active {
+      &:after {
+         left: 15px;
+         background-color: rgba(0, 255, 255, 0.9);
+         border: 2px solid rgba(0, 255, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid black;
+         background-color: rgba(0, 255, 255, 0.8);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+      &.show {
+         &:after {
+            left: 15px;
+            background-color: rgba(255, 0, 0, 0.9);
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+         }
+         &:before {
+            border: 2px solid black;
+            background-color: rgba(255, 0, 0, 0.8);
+            box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+         }
+      }
+   }
+   &.show {
+      color: #b22;
+      &:after {
+         background-color: rgba(0, 8, 255, 0.9);
+         border: 2px solid rgba(0, 111, 136, 0.5);
+         box-shadow: 0 0 3px rgba(0, 123, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid rgb(0, 102, 255);
+         background-color: rgba(0, 132, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 195, 255, 0.3);
+      }
+   }
+}
+
+.dev-panel__developer {
+   position: absolute;
+   font-size: 18px;
+   color: $colorText1;
+   font-weight: 700;
+   span {
+      position: relative;
+      left: 50px;
+      top: 0.4px;
+   }
+   z-index: 1;
+   top: 556px;
+   left: 50%;
+   margin: 0 0 0 80px;
+   z-index: 3;
+   cursor: pointer;
+   transition: all 1.3s ease 0s;
+
+   &:before {
+      @include beforeBox();
+   }
+   &:after {
+      @include afterBox();
+   }
+   &.active {
+      &:after {
+         left: 15px;
+         background-color: rgba(0, 255, 255, 0.9);
+         border: 2px solid rgba(0, 255, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid black;
+         background-color: rgba(0, 255, 255, 0.8);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+      &.show {
+         &:after {
+            left: 15px;
+            background-color: rgba(255, 0, 0, 0.9);
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+         }
+         &:before {
+            border: 2px solid black;
+            background-color: rgba(255, 0, 0, 0.8);
+            box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+         }
+      }
+   }
+   &.show {
+      color: #b22;
+      &:after {
+         background-color: rgba(0, 8, 255, 0.9);
+         border: 2px solid rgba(0, 111, 136, 0.5);
+         box-shadow: 0 0 3px rgba(0, 123, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid rgb(0, 102, 255);
+         background-color: rgba(0, 132, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 195, 255, 0.3);
+      }
+   }
+}
+
+// =================================================================================
+// =================================================================================
+//==================================================================================
+//==================================================================================
+//==================================================================================
+.wrap {
+   position: absolute;
+   padding: 10px 0 0 10px;
+   z-index: -1;
+   overflow: hidden;
+}
+.wrapper {
+   position: absolute;
+   width: 1050px;
+   height: 510px;
+}
+canvas {
+   position: relative;
+   z-index: 0;
+   border: 3px solid rgba(120, 133, 0, 0.8);
+   border-radius: 8px;
+   background-color: #1f1f1f;
+   transition: all 0.3s ease 0s;
+   &.active {
+      background-color: rgb(221, 225, 235);
+      border: 3px solid $colorLight;
+   }
+}
+
+.score {
+   margin-left: -46px;
+   position: absolute;
+   z-index: 1;
+   left: 50%;
+   top: 15px;
+   font-weight: 700;
+   font-size: 50px;
+   color: $colorText1;
+   transition: all 0.3s ease 0s;
+   &.active {
+      color: $colorLight;
+   }
+}
+
+.names {
+   color: $colorText1;
+   display: flex;
+   position: absolute;
+   z-index: 1;
+   top: 10px;
+   left: 50%;
+
+   &.active {
+      color:$colorLight;
+   }
+}
+
+.names__player,
+.names__computer {
+   width: 300px;
+   height: 50px;
+   display: flex;
+   border: 2px solid rgba(0, 255, 255, 0.1);
+   box-shadow: 0 0 2px 1px rgba(0, 255, 255, 0.1);
+   border-radius: 8px;
+   align-items: center;
+   justify-content: center;
+   font-size: 30px;
+   font-weight: 700;
+   text-align: center;
+   background-color: #1f1f1f;
+   transition: all 0.1s ease 0s;
+   position: relative;
+
+   &:hover {
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+   }
+   &.active {
+      background-color: rgb(221, 225, 235);
+      border: 2px solid rgba(0, 0, 255, 0);
+      box-shadow: 0 0 2px 1px rgba(0, 0, 255, 0);
+      color: $colorLight;
+      font-weight: 700;
+      &.order {
+         box-shadow: 0 0 2px 1px rgba(0, 0, 255, 0.9);
+      }
+   }
+   &.order {
+      box-shadow: 0 0 3px 2px yellow;
+   }
+}
+.names__player {
+   left: -462px;
+}
+
+.names__computer {
+   right: 102px;
+}
+
+.container {
+   @include mainCntnr();
+   background-color: #1f1f1f;
+   border: 3px solid $colorDark;
+   &.active {
+      border: 3px solid $colorLight;
+      background-color: rgb(221, 225, 235);
+   }
+}
+
+.container-check-theme {
+   left: 8px;
+   position: absolute;
+   font-size: 16px;
+   cursor: pointer;
+   transition: all 1.3s ease 0s;
+   margin: 3px 0;
+
+   &:before {
+      content: "";
+      width: 35px;
+      height: 20px;
+      border-radius: 20px;
+      border: 1px solid green;
+      position: absolute;
+
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+   }
+   &:after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 0px;
+
+      border: 2px solid green;
+      background-color: rgba(39, 186, 2, 0.8);
+      border-radius: 50%;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease 0s;
+   }
+   &.active {
+      &:after {
+         left: 15px;
+         background-color: rgba(0, 255, 255, 0.9);
+         border: 2px solid rgba(0, 255, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid black;
+         background-color: rgba(0, 255, 255, 0.8);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+   }
+   &.show {
+      &:after {
+         background-color: rgba(0, 8, 255, 0.9);
+         border: 2px solid rgba(0, 111, 136, 0.5);
+         box-shadow: 0 0 3px rgba(0, 123, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid rgb(0, 102, 255);
+         background-color: rgba(0, 132, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 195, 255, 0.3);
+      }
+   }
+}
+
+.text {
+   position: relative;
+   color: $colorText1;
+   padding: 0 0 0 60px;
+   transition: all 0.3s ease 0s;
+   font-weight: 700;
+   &.active {
+      color: $colorText2;
+   }
+}
+
+.container-name-change {
+   @include mainBtns();
+   left: 8px;
+   top: 35px;
+   background-color: rgba(229, 255, 0, 0.3);
+   &.show {
+      color: honeydew;
+      background-color: $colorLight;
+      &:hover {
+         background-color: rgba(36, 42, 208, 0.5);
+      }
+      &:active {
+         background-color: rgba(255, 0, 0, 0.478);
+      }
+   }
+}
+
+.nickname-items {
+   padding: 10px 0;
+   position: absolute;
+   margin: 0 0 0 -98px;
+   z-index: 1;
+   top: 160px;
+   left: 50%;
+   width: 203px;
+   height: 200px;
+   display: none;
+   flex-direction: column;
+   justify-content: space-around;
+   align-items: center;
+   background-color: #1f1f1f;
+   border-radius: 8px;
+   border: 3px solid yellow;
+   & input {
+      height: 25px;
+      border-radius: 5px;
+      background-color: #2f2f2f;
+      color: $colorText1;
+      width: 150px;
+      font-size: 18px;
+      font-weight: 700;
+   }
+   &__btns {
+      display: flex;
+   }
+   &.active {
+      display: flex;
+   }
+   &.show {
+      background-color: rgb(221, 225, 235);
+      border: 3px solid $colorLight;
+
+      & input {
+         background-color: #ffffff;
+         border: 2px solid blue;
+         color: red;
+      }
+   }
+}
+
+.n-player,
+.n-camp {
+   color: $colorText1;
+   text-transform: uppercase;
+   text-align: center;
+   font-weight: 700;
+   &.show {
+      color: red;
+   }
+}
+
+.n-i-ok,
+.n-i-cncl {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(229, 255, 0, 0.3);
+   font-size: 13px;
+   font-weight: 700;
+   width: 80px;
+   height: 30px;
+   color: black;
+   border-radius: 5px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.2s;
+   margin: 0 5px;
+
+   cursor: pointer;
+
+   &:hover {
+      background-color: rgba(229, 255, 0, 0.6);
+   }
+
+   &:active {
+      background-color: yellow;
+      box-shadow: 0 0 10px 2px rgba(229, 255, 0, 0.3);
+   }
+   &.show {
+      color: honeydew;
+      background-color: $colorLight;
+      &:hover {
+         background-color: rgba(36, 42, 208, 0.5);
+      }
+
+      &:active {
+         background-color: rgba(255, 0, 0, 0.478);
+      }
+   }
+}
+
+.container-play {
+   @include mainBtns();
+   left: 8px;
+   bottom: 0;
+   background-color: rgba(229, 255, 0, 0.3);
+   
+   &.active {
+      color: honeydew;
+      background-color: $colorLight;
+      &:hover {
+         background-color: rgba(36, 42, 208, 0.5);
+      }
+
+      &:active {
+         background-color: rgba(255, 0, 0, 0.478);
+      }
+   }
+}
+
+.container-technique {
+   position: absolute;
+   display: flex;
+   bottom: 60px;
+   left: 8px;
+   position: absolute;
+}
+
+.container-technique__manual {
+   background-color: rgba(229, 255, 0, 0.3);
+   width: 85px;
+   height: 35px;
+   font-size: 14px;
+   font-weight: 700;
+   bottom: 18%;
+   left: 50%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: black;
+   border-radius: 5px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.2s;
+   margin: 0 6px 0 0;
+
+   cursor: pointer;
+   &:hover {
+      background-color: rgba(229, 255, 0, 0.6);
+   }
+
+   &:active {
+      background-color: yellow;
+      box-shadow: 0 0 10px 2px rgba(229, 255, 0, 0.3);
+   }
+   &.active {
+      color: honeydew;
+      background-color: $colorLight;
+      &:hover {
+         background-color: rgba(36, 42, 208, 0.5);
+      }
+
+      &:active {
+         background-color: rgba(255, 0, 0, 0.478);
+      }
+   }
+   &.play {
+      display: none;
+   }
+   &.n-p-btn {
+      display: flex;
+      bottom: 1%;
+   }
+}
+
+.container-technique__random {
+   background-color: rgba(229, 255, 0, 0.3);
+   width: 85px;
+   height: 35px;
+   font-size: 14px;
+   font-weight: 700;
+   bottom: 18%;
+   left: 50%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: black;
+   border-radius: 5px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.2s;
+   margin: 0 0 0 6px;
+   cursor: pointer;
+   &:hover {
+      background-color: rgba(229, 255, 0, 0.6);
+   }
+
+   &:active {
+      background-color: yellow;
+      box-shadow: 0 0 10px 2px rgba(229, 255, 0, 0.3);
+   }
+   &.active {
+      color: honeydew;
+      background-color: $colorLight;
+      &:hover {
+         background-color: rgba(36, 42, 208, 0.5);
+      }
+
+      &:active {
+         background-color: rgba(255, 0, 0, 0.478);
+      }
+   }
+   &.play {
+      display: none;
+   }
+   &.n-p-btn {
+      display: flex;
+      bottom: 1%;
+   }
+}
+
+.version {
+   top: 500px;
+   left: 50%;
+   margin: 0 0 0 -20px;
+   position: absolute;
+
+   font-size: 11px;
+   color: rgba(0, 255, 255, 0.307);
+   z-index: 2;
+   &.active {
+      color: $colorLight;
+   }
+}
+
+.container-lvl {
+   @include mainBtns();
+   background-color: rgba(229, 255, 0, 0.3);
+   left: 8px;
+   top: 90px;
+   &.show {
+      color: honeydew;
+      background-color: $colorLight;
+      &:hover {
+         background-color: rgba(36, 42, 208, 0.5);
+      }
+
+      &:active {
+         background-color: rgba(255, 0, 0, 0.478);
+      }
+   }
+}
+
+.container-lvl-i {
+   display: none;
+   margin: 5px 0;
+   position: absolute;
+   top: 135px;
+   &.active {
+      display: flex;
+   }
+}
+
+.lvl-n {
+   position: relative;
+   left: 8px;
+   background-color: rgba(229, 255, 0, 0.3);
+   width: 50px;
+   height: 40px;
+   font-size: 20px;
+   font-weight: 700;
+   color: black;
+   border-radius: 5px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.2s;
+   cursor: pointer;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 0 5px;
+   &:hover {
+      background-color: rgba(229, 255, 0, 0.6);
+   }
+
+   &:active {
+      background-color: yellow;
+      box-shadow: 0 0 10px 2px rgba(229, 255, 0, 0.3);
+   }
+   &.show {
+      transition: all 0.3s ease 0s;
+      color: honeydew;
+      background-color: $colorLight;
+      &:hover {
+         background-color: rgba(36, 42, 208, 0.5);
+      }
+
+      &:active {
+         background-color: rgba(255, 0, 0, 0.478);
+         box-shadow: 0 0 10px 2px rgba(229, 255, 0, 0.3);
+         &.show {
+            box-shadow: 0 0 10px 2px $colorLight;
+         }
+      }
+   }
+   &.active {
+      transition: 0.3s;
+      background-color: yellow;
+      box-shadow: 0 0 10px 2px rgba(229, 255, 0, 0.3);
+      &.show {
+         background-color: rgba(255, 0, 0, 0.478);
+      }
+   }
+}
+
+.container-play-info {
+   @include mainCntnr();
+   background-color: #1f1f1f;
+   border: 3px solid $colorDark;
+   display: none;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;
+   
+   &__p {
+      @include playText();
+      &.show {
+         color: $colorText2;
+      }
+   }
+
+   &__btn-end {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(229, 255, 0, 0.3);
+      height: 40px;
+      width: 182px;
+      font-size: 20px;
+      font-weight: 700;
+      color: black;
+      border-radius: 5px;
+      text-align: center;
+      text-transform: uppercase;
+      transition: 0.2s;
+      cursor: pointer;
+      &:hover {
+         background-color: rgba(229, 255, 0, 0.6);
+      }
+      &:active {
+         background-color: yellow;
+         box-shadow: 0 0 10px 2px rgba(229, 255, 0, 0.3);
+      }
+      &.active {
+         color: honeydew;
+         background-color: $colorLight;
+         &:hover {
+            background-color: rgba(36, 42, 208, 0.5);
+         }
+         &:active {
+            background-color: rgba(255, 0, 0, 0.478);
+         }
+      }
+   }
+   &.active {
+      display: flex;
+   }
+   &.show {
+      background-color: rgb(221, 225, 235);
+      border: 3px solid $colorLight;
+   }
+}
+
+.winner {
+   @include playText();
+   display: none;
+   text-align: center;
+   &.active {
+      display: block;
+   }
+   &.show {
+      color: $colorText2;
+   }
+}
+
+.win {
+   left: 50%;
+   position: absolute;
+   display: flex;
+}
+
+.win__player,
+.win__computer {
+   opacity: 0.4;
+   top: 123px;
+   &.show {
+      background-color: rgb(221, 225, 235);
+   }
+}
+
+.win__player {
+   @include winBlock();
+   display: none;
+   margin: 0 0 0 -628px;
+   &.active {
+      display: flex;
+   }
+}
+.win__computer {
+   @include winBlock();
+   display: none;
+   margin: 0 0 0 360px;
+   &.active {
+      display: flex;
+   }
+}
+
+.time {
+   position: absolute;
+   top: 100px;
+   left: 50%;
+   z-index: 1;
+   margin: 0 0 0 -46px;
+   width: 100px;
+   height: 25px;
+   display: none;
+   justify-content: center;
+   align-items: center;
+   left: calc(50%-px);
+   color: $colorText1;
+   background-color: #1f1f1f;
+   border-radius: 7px 7px 0 0;
+   border-top: 3px solid $colorDark;
+   border-left: 3px solid $colorDark;
+   border-right: 3px solid $colorDark;
+   transition: 0.2s;
+   span {
+      font-weight: 700;
+      font-size: 20px;
+   }
+   &.active {
+      display: flex;
+   }
+   &.show {
+      background-color: rgb(221, 225, 235);
+      border-top: 3px solid $colorLight;
+      border-left: 3px solid $colorLight;
+      border-right: 3px solid $colorLight;
+      color: $colorText2;
+   }
+}
+
+.timeout {
+   display: none;
+   position: absolute;
+   top: 430px;
+   left: 65px;
+   font-size: 14px;
+   color: #1f1f1f;
+   font-weight: 700;
+   span {
+      position: relative;
+      color: $colorText1;
+      left: 40px;
+      top: -1px;
+   }
+   z-index: 3;
+   cursor: pointer;
+   transition: all 1.3s ease 0s;
+
+   &:before {
+      content: "";
+      width: 30px;
+      height: 15px;
+      border-radius: 20px;
+      border: 1px solid yellow;
+      position: absolute;
+      left: 0;
+      top: 0;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+   }
+   &:after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      left: 1px;
+      top: 0px;
+      border: 2px solid yellow;
+      background-color: rgba(251, 255, 0, 0.885);
+      border-radius: 50%;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease 0s;
+   }
+   &.active {
+      &:after {
+         left: 15px;
+         background-color: rgba(0, 255, 255, 0.9);
+         border: 2px solid rgba(0, 255, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid black;
+         background-color: rgba(0, 255, 255, 0.8);
+         box-shadow: 0 0 3px rgba(0, 0, 255, 0.3);
+      }
+      &.show {
+         &:after {
+            left: 15px;
+            background-color: rgba(255, 0, 0, 0.9);
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+         }
+         &:before {
+            border: 2px solid black;
+            background-color: rgba(255, 0, 0, 0.8);
+            box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+         }
+      }
+   }
+   &.show {
+      span {
+         color: #b22;
+      }
+      color: #b22;
+      &:after {
+         background-color: rgba(0, 8, 255, 0.9);
+         border: 2px solid rgba(0, 111, 136, 0.5);
+         box-shadow: 0 0 3px rgba(0, 123, 255, 0.3);
+      }
+      &:before {
+         border: 2px solid rgb(0, 102, 255);
+         background-color: rgba(0, 132, 255, 0.5);
+         box-shadow: 0 0 3px rgba(0, 195, 255, 0.3);
+      }
+   }
+   &.out {
+      display: block;
+   }
+}
+
+
+
+.lvl-block {
+   @include mainCntnr();
+   display: none;
+   flex-direction: column;
+   background-color: rgb(221, 225, 235);
+   justify-content: space-between;
+   align-items: center;
+   text-align: center;
+   border: 3px solid $colorLight;
+   &.active {
+      display: flex;
+   }
+}
+.lvl-block__text {
+}
+.lvl-block__btns {
+   display: flex;
+}
+.lvl-block__btns-item {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(229, 255, 0, 0.3);
+   font-size: 13px;
+   font-weight: 700;
+   width: 80px;
+   height: 30px;
+   color: black;
+   border-radius: 5px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.2s;
+   margin: 0 5px;
+
+   cursor: pointer;
+
+   &:hover {
+      background-color: rgba(229, 255, 0, 0.6);
+   }
+
+   &:active {
+      background-color: yellow;
+      box-shadow: 0 0 10px 2px rgba(229, 255, 0, 0.3);
+   }
+   &.show {
+      color: honeydew;
+      background-color: $colorLight;
+      &:hover {
+         background-color: rgba(36, 42, 208, 0.5);
+      }
+
+      &:active {
+         background-color: rgba(255, 0, 0, 0.478);
+      }
+   }
+}
