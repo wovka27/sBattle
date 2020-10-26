@@ -165,7 +165,7 @@ document.getElementById('n-i-ok').addEventListener('click', function (e) {
    rmvCls('nni', 'active');
 
    if (playerName === 'cheat') {
-      game.player.name = addCls('dev-p', 'active');
+      addCls('dev-p', 'active');
    } 
    
 })
